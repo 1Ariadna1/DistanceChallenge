@@ -1,0 +1,50 @@
+﻿<div ng-app="titles" ng-controller="TitlesController as tc">
+    <div class="jumbotron col-lg-12">
+        <h1>Movie Classics Catalog</h1>
+    </div>
+    <div class="row">
+
+    </div>
+    <div ng-if="!tc.selectedTitle">
+        <div class="col-md-4">
+            <h1>Search for a Title:</h1>
+            <p>Title : <input type="text" ng-model="titleSearch" placeholder="Enter title here"></p>
+            <p>Searching For... {{titleSearch}}</p>
+        </div>
+
+        <div class=" col-md-4">
+
+            <table>
+                 <thead>
+                     <tr>
+                         <th>Title</th>
+                         <th>ReleaseYear</th>
+                     </tr>
+                 </thead>
+            <tbody>
+                <tr ng-repeat="title in tc.titles | filter : { TitleName : titleSearch }">
+                    <td> <a href="" ng-click="tc.selectedTitle = title">{{title.TitleName}}</a></td>
+                    <td ng-click="tc.selectedTitle = title">{{title.ReleaseYear}}</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+    <div ng-if="!!tc.selectedTitle">
+        <div class="col-md-12">
+            <strong><b><h1>{{tc.selectedTitle.TitleName}} </h1></b></strong>
+        </div>
+        <div class="col-md-12">
+            <ul>
+                <b>Some Different Descriptions</b>
+                <li ng-repeat="storyLine in tc.selectedTitle.StoryLines">
+                    <p><h3>{{storyLine.Description}}</h3></p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-offset-6">
+            <div class="btn btn-lg btn-primary" ng-click="tc.selectedTitle = null">Back</div>
+        </div>
+
+    </div>
+</div>
